@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MOA 설치 가이드 — 최종판</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+<style>
+:root{
+  --bg:#F2F2F7; --surface:#fff; --text:#1C1C1E; --sub:#636366; --weak:#8E8E93;
+  --blue:#007AFF; --blue-weak:#E5F1FF; --green:#34C759; --green-weak:#E4F8EA;
+  --orange:#FF9500; --orange-weak:#FFF1E0; --red:#FF3B30; --red-weak:#FFE5E2;
+  --line:rgba(60,60,67,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Pretendard Variable',Pretendard,system-ui,sans-serif;
+  background:var(--bg); color:var(--text); word-break:keep-all;
+  -webkit-font-smoothing:antialiased; font-feature-settings:'tnum';
+}
+.wrap{max-width:720px;margin:0 auto;padding:32px 18px 60px}
+h1{font-size:32px;font-weight:800;letter-spacing:-.5px}
+h1 span{color:var(--blue)}
+.sub{font-size:14px;color:var(--sub);margin:8px 0 6px;line-height:1.65}
+.time-badge{display:inline-block;background:var(--blue-weak);color:var(--blue);font-size:12px;font-weight:700;padding:5px 12px;border-radius:99px;margin:10px 0 24px}
+.card{background:var(--surface);border-radius:16px;padding:20px;margin-bottom:12px}
+.step{display:flex;gap:14px;align-items:flex-start}
+.step-num{width:30px;height:30px;border-radius:99px;background:var(--blue);color:#fff;font-size:14px;font-weight:800;display:flex;align-items:center;justify-content:center;flex:none}
+.step-num.opt{background:var(--orange)}
+.step-body{flex:1;min-width:0}
+.step-title{font-size:15.5px;font-weight:800;margin-bottom:2px}
+.step-where{font-size:11.5px;font-weight:700;color:var(--blue);margin-bottom:8px}
+.step-desc{font-size:13.5px;color:var(--sub);line-height:1.75}
+.step-desc b{color:var(--text)}
+.step-desc ol{margin:6px 0 0 18px}
+.step-desc li{margin-bottom:5px}
+code{background:var(--bg);padding:2px 7px;border-radius:6px;font-size:12px;font-family:ui-monospace,Menlo,monospace;color:#0A5BD6}
+.warn{background:var(--red-weak);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.65;margin-top:10px;color:#8a2620}
+.warn b{color:var(--red)}
+.tip{background:var(--green-weak);border-radius:10px;padding:10px 12px;font-size:12.5px;line-height:1.65;margin-top:10px;color:#1d6233}
+h2{font-size:13px;font-weight:700;color:var(--weak);letter-spacing:.6px;text-transform:uppercase;margin:32px 0 12px;padding-left:2px}
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{padding:10px 8px;text-align:left;border-top:.5px solid var(--line);vertical-align:top;line-height:1.6}
+thead th{border-top:none;font-size:11.5px;color:var(--weak);font-weight:700;padding-top:0}
+td:first-child{font-weight:700}
+.check{font-size:13.5px;line-height:2.1;color:var(--sub)}
+.check b{color:var(--text)}
+footer{font-size:11.5px;color:var(--weak);text-align:center;margin-top:36px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>MOA<span>.</span> 설치 가이드</h1>
+  <p class="sub">현재 상태(앱-시트 연동 완료) 기준, 최신 버전으로 가는 최종 절차.<br>위에서 아래로 순서대로 — 순서 중요해요 (비서 연결은 재배포 뒤!).</p>
+  <div class="time-badge">⏱️ 설치 15~20분 · 아래쪽에 운영 가이드(멀티 디바이스·백업·루틴) 포함</div>
+
+  <h2>본 설치 — 순서대로</h2>
+
+  <div class="card"><div class="step"><div class="step-num">1</div><div class="step-body">
+    <div class="step-title">Apps Script 코드 교체</div>
+    <div class="step-where">📍 구글시트 → 확장 프로그램 → Apps Script</div>
+    <div class="step-desc"><ol>
+      <li>기존 코드 <b>전체 선택 → 삭제</b> 후 새 <code>Code.gs</code> 내용 붙여넣기</li>
+      <li>코드 상단 상수 입력:<br><code>TG_TOKEN</code> = 봇 토큰 (@BotFather → /newbot, <b>MOA 전용 봇 추천</b>)<br><code>TG_CHAT_ID</code> = 내 챗ID (@userinfobot에게 아무 말 보내면 알려줌)<br><code>GEMINI_KEY</code> = (선택) aistudio.google.com/apikey 무료 발급</li>
+      <li>💾 저장 (Ctrl+S)</li>
+    </ol></div>
+    <div class="warn"><b>⚠️ 잊지 말기:</b> 새 봇이면 텔레그램에서 봇에게 <b>/start</b>를 먼저 보내둬야 메시지를 받을 수 있어요.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="step-num">2</div><div class="step-body">
+    <div class="step-title">시트 탭 보강 — setupSheets ▶</div>
+    <div class="step-where">📍 Apps Script 상단 함수 드롭다운 → setupSheets 선택 → ▶ 실행</div>
+    <div class="step-desc">처음 실행하면 권한 창이 떠요: <b>권한 검토 → 계정 선택 → 고급 → "안전하지 않은 페이지로 이동" → 허용</b>. 내 스크립트라 안전합니다.<br><br>실행하면 <b>없는 탭만</b> 새로 생겨요 (저축·고정지출·투자금·설정). 기존 데이터는 안 건드립니다.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="step-num">3</div><div class="step-body">
+    <div class="step-title">자동화 트리거 3종 — 각 1회 ▶</div>
+    <div class="step-where">📍 같은 곳, 함수 드롭다운에서 하나씩 선택 → ▶</div>
+    <div class="step-desc"><ol>
+      <li><code>setupBackupTrigger</code> — 매일 04시 시트 백업 (드라이브 MOA_백업, 30일 보관)</li>
+      <li><code>setupFixedExpenseTrigger</code> — 매일 06시 고정지출 자동 기입 (실행 즉시 밀린 것 처리)</li>
+      <li><code>setupBriefingTrigger</code> — 매일 08시·21시 텔레그램 브리핑 (<b>실행 직후 테스트 메시지 1건</b>이 와야 정상)</li>
+    </ol></div>
+    <div class="tip">💡 시간 바꾸려면 함수 안의 <code>atHour(8)</code> 숫자만 고치고 다시 ▶.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="step-num">4</div><div class="step-body">
+    <div class="step-title">새 버전 재배포 — 가장 많이 빠뜨리는 단계</div>
+    <div class="step-where">📍 Apps Script 우상단 배포 → 배포 관리 → ✏️ 연필</div>
+    <div class="step-desc"><ol>
+      <li>버전: <b>"새 버전"</b> 선택</li>
+      <li>액세스: <b>"모든 사용자"</b> 확인 — <b>"Google 계정이 있는 모든 사용자" 아님!</b> (둘이 달라요)</li>
+      <li>배포 → URL은 기존과 동일하게 유지 → <b>앱 재연결 불필요</b></li>
+    </ol></div>
+    <div class="warn"><b>⚠️</b> 코드만 저장하고 재배포 안 하면 앱·봇은 <b>옛날 코드</b>로 돌아갑니다. "분명 고쳤는데 그대로네?"의 90%가 이거예요.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="step-num">5</div><div class="step-body">
+    <div class="step-title">텔레그램 비서 연결 — setupTelegramAssistant ▶</div>
+    <div class="step-where">📍 함수 드롭다운 → setupTelegramAssistant → ▶ (반드시 4번 재배포 후에!)</div>
+    <div class="step-desc">텔레그램으로 <b>"🤝 비서 연결 완료!"</b>가 오면 성공. 이제 봇에게 금액을 보내면 구매 가능 여부를 답해줍니다.</div>
+    <div class="tip">💡 메시지가 안 오면: 코드 상단 <code>WEBAPP_URL</code>에 배포 관리의 <b>/exec URL</b>을 직접 붙여넣고 저장 → 다시 ▶.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="step-num">6</div><div class="step-body">
+    <div class="step-title">앱 파일 교체 (GitHub Pages)</div>
+    <div class="step-where">📍 GitHub repo</div>
+    <div class="step-desc">최신 <code>moa.html</code>을 <b>index.html로 이름 바꿔 업로드</b>(덮어쓰기) → 1~2분 후 반영. 로컬로 쓴다면 <code>python -m http.server</code> 폴더의 파일만 교체.<br><br>그다음 앱 <b>설정 → 📲 다른 기기 연결 링크 복사</b> → 카톡 나에게 보내기 → 폰에서 열면 자동 연결 → 폰 홈 화면에 추가.</div>
+  </div></div></div>
+
+  <div class="card"><div class="step"><div class="step-num opt">7</div><div class="step-body">
+    <div class="step-title">초기 데이터 입력 — 앱에서 (10분)</div>
+    <div class="step-where">📍 MOA 앱 ＋ 버튼</div>
+    <div class="step-desc"><ol>
+      <li><b>고정지출 등록</b> (가계부 ＋ → 고정 등록): 월세·구독·통신비·공과금. 금액이 매달 다른 공과금은 예상치 + 자동기록 Y</li>
+      <li><b>투자금</b> (투자 ＋ → 투자금 입금): 이번 달 월초에 빼놓은 적립금</li>
+      <li><b>위시리스트</b> (홈 ＋): 진짜 갖고 싶은 것들, 3만~100만 가격대 섞어서</li>
+      <li><b>6/30 월말</b>: 홈 ＋ → 자산 스냅샷 — 추정치가 미리 채워져 있으니 실제 잔고와 비교해 저장</li>
+    </ol></div>
+  </div></div></div>
+
+  <h2>✅ 완료 체크 — 전부 통과하면 끝</h2>
+  <div class="card"><div class="check">
+    ☐ 텔레그램에 <b>테스트 브리핑</b> 도착 (3단계 직후)<br>
+    ☐ 봇에게 <code>35000 사도됨?</code> → 판정 답장 옴<br>
+    ☐ 🤔/🚫 받고 <code>위시</code> → 시트 위시리스트 탭에 등록됨<br>
+    ☐ (키 입력했다면) <code>맥스 이번 달 진단해줘</code> → 👑 MAX 답변<br>
+    ☐ 앱 가계부에 <b>고정지출 체크</b> 카드 ✅/🕐 표시<br>
+    ☐ 앱 가계부 <b>캘린더</b>에 일별 금액 표시<br>
+    ☐ 폰·PC 양쪽에서 같은 데이터 확인
+  </div></div>
+
+  <h2>💻 운영 1 — 모든 기기에서 쓰기 (멀티 디바이스)</h2>
+  <div class="card">
+    <div class="step-desc">
+      <b>처음 한 번 — GitHub Pages에 올리기 (아직 안 했다면, 5분):</b>
+      <ol>
+        <li>github.com → New repository → 이름 예: <code>moa</code> → Public → Create</li>
+        <li>Add file → Upload files → <code>moa.html</code>을 <b>index.html로 이름 바꿔</b> 업로드 → Commit</li>
+        <li>Settings → Pages → Branch: <b>main</b> → Save</li>
+        <li>1~2분 뒤 <code>https://아이디.github.io/moa</code> 가 내 앱 주소. 이후 업데이트는 index.html만 덮어쓰면 끝</li>
+      </ol>
+      <b>기기 추가 — 어떤 컴퓨터든 30초:</b>
+      <ol>
+        <li>이미 연결된 기기에서: 설정 → <b>📲 다른 기기 연결 링크 복사</b> → 카톡 나에게 보내기</li>
+        <li>새 기기에서 그 링크 열기 → <b>자동 연결 끝.</b> (링크 없이면: 앱 주소 접속 → 설정에 Apps Script URL 붙여넣기)</li>
+        <li>폰은 홈 화면 추가까지: <b>아이폰</b> Safari 공유 버튼 → "홈 화면에 추가" / <b>안드로이드</b> Chrome ⋮ → "홈 화면에 추가"</li>
+      </ol>
+      <b>동기화는 자동:</b> 모든 기기가 같은 시트를 읽고 쓰므로 폰에서 입력 → PC에서 보임. 앱으로 돌아오면 자동 새로고침되고(60초 스로틀), 급하면 우상단 🔄. 저축률 같은 설정도 시트로 동기화돼요.
+    </div>
+    <div class="warn"><b>⚠️</b> moa.html을 더블클릭으로 여는 <code>file://</code> 방식은 연결이 막혀요. 반드시 GitHub Pages 주소나 <code>python -m http.server</code>로 띄운 localhost에서 쓰세요.</div>
+  </div>
+
+  <h2>🗄️ 운영 2 — 백업과 복원</h2>
+  <div class="card">
+    <div class="step-desc">
+      <b>3중 안전망이 자동으로 돌아갑니다 (설치 3단계에서 켠 것):</b>
+      <ol>
+        <li><b>매일 04시 자동 백업</b> — 구글 드라이브 <code>MOA_백업</code> 폴더에 시트 사본, 최근 30일치 보관</li>
+        <li><b>구글시트 버전 기록</b> — 시트 자체가 모든 수정을 기록 (파일 → 버전 기록 → 이전 버전 보기)</li>
+        <li><b>드라이브 휴지통</b> — 시트를 통째로 지워도 30일간 복구 가능</li>
+      </ol>
+      <b>복원 방법 — 상황별:</b>
+      <ol>
+        <li><b>입력 실수 (오타·중복)</b> → 시트에서 해당 행 직접 수정/삭제 → 앱 새로고침. 끝</li>
+        <li><b>실수로 많이 지움</b> → 파일 → 버전 기록 → 사고 전 시점 선택 → "이 버전 복원"</li>
+        <li><b>대형 사고 (탭 삭제 등)</b> → 드라이브 MOA_백업에서 어제 사본 열기 → 망가진 탭 내용을 본편 시트에 <b>복사해 넣기</b> (사본을 본편으로 바꾸면 Apps Script를 다시 묶어야 해서 비추)</li>
+      </ol>
+    </div>
+    <div class="tip">💡 백업이 잘 쌓이는지 설치 다음 날 드라이브에서 MOA_백업 폴더 한 번만 확인해보세요. 그 뒤로는 잊고 살아도 됩니다.</div>
+  </div>
+
+  <h2>📆 운영 3 — 일상 루틴 (이것만 하면 됨)</h2>
+  <div class="card" style="overflow-x:auto"><table>
+    <thead><tr><th>주기</th><th>할 일</th></tr></thead>
+    <tr><td>매일 (1분)</td><td>쓸 때마다 가계부 ＋로 지출 입력. 살까 말까는 봇에게 금액 먼저 (<code>35000 사도됨?</code>). 8시·21시 브리핑은 읽기만</td></tr>
+    <tr><td>월초 (2분)</td><td>투자 ＋ → 투자금 입금 기록 · 가계부의 고정지출 체크 카드에서 ✅ 자동 기입 확인</td></tr>
+    <tr><td>월말 (3분)</td><td>홈 ＋ → 자산 스냅샷: 추정치가 채워져 있으니 실제 잔고와 비교해 저장 → 그래프·연속기록 갱신</td></tr>
+    <tr><td>수시</td><td>적금 부으면 목표 ＋ → 저축 입력 · 갖고 싶은 건 봇에 "위시" 또는 홈 ＋</td></tr>
+    <tr><td>수정·삭제</td><td>전부 <b>시트에서 직접</b> (앱·봇은 추가 전용). 고정지출 해지도 시트에서 행 삭제</td></tr>
+    <tr><td>안 해도 되는 것</td><td>백업 · 고정지출 기입 · 기기 동기화 · 브리핑 — 전부 자동</td></tr>
+  </table></div>
+
+  <h2>🔧 트러블슈팅</h2>
+  <div class="card" style="overflow-x:auto"><table>
+    <thead><tr><th>증상</th><th>원인 / 해결</th></tr></thead>
+    <tr><td>앱 "연결 실패 Failed to fetch"</td><td>배포 액세스가 "Google 계정이 있는 모든 사용자"로 돼 있음 → <b>"모든 사용자"</b>로 변경 후 새 버전 재배포</td></tr>
+    <tr><td>고쳤는데 변화 없음</td><td>새 버전 재배포 누락 (4단계). 코드 저장 ≠ 배포</td></tr>
+    <tr><td>봇이 답을 안 함</td><td>① 봇에게 /start 안 보냄 ② 5단계(웹훅) 안 함 ③ 재배포 전에 5단계를 해버림 → 재배포 후 5단계 다시 ▶</td></tr>
+    <tr><td>브리핑이 안 옴</td><td>TG_TOKEN/TG_CHAT_ID 오타 확인 → setupBriefingTrigger 다시 ▶ (테스트 발송으로 즉시 확인 가능)</td></tr>
+    <tr><td>MAX 응답 실패</td><td>GEMINI_KEY 확인 / 무료 쿼터 소진 → <code>GEMINI_MODEL</code>을 <code>'gemini-2.5-flash-lite'</code>로 교체</td></tr>
+    <tr><td>고정지출이 자동 기입 안 됨</td><td>시트 고정지출 탭의 자동기록 컬럼이 <b>Y</b>인지, 결제일이 지났는지 확인. 트리거는 다음날 06시에 돌아요</td></tr>
+    <tr><td>날짜가 하루 밀림</td><td>시트 파일 → 설정 → 시간대가 <b>(GMT+09:00) Seoul</b>인지 확인</td></tr>
+  </table></div>
+
+  <h2>📱 봇 명령어 카드 — 저장해두기</h2>
+  <div class="card"><div class="check">
+    <b>금액</b> (<code>에어팟 35만 사도됨?</code> <code>6천</code>) → 구매 판정<br>
+    <b>위시</b> / <code>위시 이름 금액</code> → 위시리스트 등록<br>
+    <b>예산</b> → 즉시 브리핑<br>
+    <b>맥스 + 질문</b> → 자산관리사 상담 (분석 질문은 자동 감지, 일 15회)<br>
+    매일 <b>8시·21시</b> 자동 브리핑
+  </div></div>
+
+  <footer>MOA v5.2 최종 · moa.html + Code.gs + 구글시트 10탭 + 텔레그램 봇<br>입력은 앱·봇에서 / 수정·삭제는 시트에서 / 백업·기록·브리핑은 자동으로</footer>
+</div>
+</body>
+</html>
